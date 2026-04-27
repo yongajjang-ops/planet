@@ -750,10 +750,22 @@ function updateHeadingBar(h) {
 
 // 센서 이벤트 → rawHeading 갱신만 (렌더링과 분리)
 function onOrientation(e) {
+  // 기기가 수평에 가까우면 자력계 신뢰도가 급락 → 업데이트 차단
+  const tilt = Math.hypot(e.beta ?? 0, e.gamma ?? 0);  // 수평면 기준 기울기(도)
+  if (tilt < 20) {
+    document.getElementById('heading-note').textContent = '기기를 세워서 사용하세요';
+    return;
+  }
+
+  // iOS: 나침반 정확도가 낮을 때 스킵
+  if (e.webkitCompassAccuracy != null && e.webkitCompassAccuracy > 25) return;
+
   let h = null;
   if (e.webkitCompassHeading != null)  h = e.webkitCompassHeading;
   else if (e.alpha != null)            h = (360 - e.alpha) % 360;
   if (h === null) return;
+
+  document.getElementById('heading-note').textContent = '';
 
   HEADING_BUF.push(h);
   if (HEADING_BUF.length > BUF_SIZE) HEADING_BUF.shift();
