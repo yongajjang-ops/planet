@@ -465,25 +465,51 @@ function drawSky() {
     ctx.stroke();
   }
 
-  // 방위 레이블 (N/E/S/W, 한글)
+  // 방위 레이블 (N/E/S/W + 한글)
   const dirs = [
-    ['N','북', 0,   '#ff7766', 12],
-    ['E','동', 90,  '#99aadd', 10],
-    ['S','남', 180, '#99aadd', 10],
-    ['W','서', 270, '#99aadd', 10],
+    ['N', '북', 0,   '#ff2200', 32],
+    ['E', '동', 90,  '#ffffff', 26],
+    ['S', '남', 180, '#ffffff', 26],
+    ['W', '서', 270, '#ffffff', 26],
   ];
   dirs.forEach(([en, ko, az, col, fs]) => {
-    const {x,y} = altaz2xy(1, az);
+    const {x, y} = altaz2xy(2, az);
     ctx.save();
     ctx.translate(x, y);
-    ctx.rotate(-rot);   // 항상 가독성 있게 역회전
+    ctx.rotate(-rot);
+
+    // 배경 캡슐
+    const bw = fs * 2.2, bh = fs * 3.0, br = 7;
+    ctx.fillStyle = 'rgba(0,4,18,0.82)';
+    ctx.strokeStyle = col + '88';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(-bw/2 + br, -bh/2);
+    ctx.arcTo( bw/2, -bh/2,  bw/2,  bh/2, br);
+    ctx.arcTo( bw/2,  bh/2, -bw/2,  bh/2, br);
+    ctx.arcTo(-bw/2,  bh/2, -bw/2, -bh/2, br);
+    ctx.arcTo(-bw/2, -bh/2,  bw/2, -bh/2, br);
+    ctx.closePath();
+    ctx.fill();
+    ctx.stroke();
+
+    // 글로우 (두 번 겹쳐서 더 강하게)
+    ctx.shadowColor = col;
+    ctx.shadowBlur  = 18;
     ctx.fillStyle = col;
     ctx.font = `bold ${fs}px sans-serif`;
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText(en, 0, -7);
-    ctx.font = `${fs-2}px sans-serif`;
-    ctx.fillStyle = col + 'cc';
-    ctx.fillText(ko, 0, 5);
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(en, 0, -fs * 0.28);
+    ctx.fillText(en, 0, -fs * 0.28); // 두 번 그려 글로우 강화
+
+    ctx.shadowBlur = 0;
+
+    // 한글
+    ctx.fillStyle = col + 'dd';
+    ctx.font = `bold ${fs - 10}px sans-serif`;
+    ctx.fillText(ko, 0, fs * 0.52);
+
     ctx.restore();
   });
 
