@@ -18,15 +18,11 @@ body {
 }
 
 #loading {
-  position: fixed;
-  inset: 0;
+  position: fixed; inset: 0;
   background: #010a1a;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  z-index: 100;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px; z-index: 100;
 }
 .spinner {
   width: 44px; height: 44px;
@@ -42,10 +38,7 @@ body {
   padding: 12px 18px;
   background: rgba(5,15,40,0.9);
   border-bottom: 1px solid rgba(80,130,255,0.18);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
 }
 #header-left { flex: 1; }
 #time-display { font-size: 13px; color: #7aaaff; font-variant-numeric: tabular-nums; }
@@ -53,20 +46,15 @@ body {
 #refresh-btn {
   background: rgba(80,130,255,0.12);
   border: 1px solid rgba(80,130,255,0.25);
-  color: #7aaaff;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 12px;
-  white-space: nowrap;
+  color: #7aaaff; padding: 6px 12px;
+  border-radius: 6px; cursor: pointer; font-size: 12px; white-space: nowrap;
 }
 #refresh-btn:hover { background: rgba(80,130,255,0.22); }
 
 #app-title {
   font-size: 15px; color: #88aadd;
   padding: 12px 18px 6px;
-  width: 100%; max-width: 520px;
-  letter-spacing: 0.5px;
+  width: 100%; max-width: 520px; letter-spacing: 0.5px;
 }
 
 #sky-wrap {
@@ -80,108 +68,70 @@ body {
   position: absolute;
   background: rgba(2,12,35,0.96);
   border: 1px solid rgba(100,160,255,0.35);
-  border-radius: 10px;
-  padding: 11px 15px;
-  display: none;
-  pointer-events: none;
-  min-width: 155px;
-  backdrop-filter: blur(6px);
-  z-index: 10;
+  border-radius: 10px; padding: 11px 15px;
+  display: none; pointer-events: none;
+  min-width: 155px; backdrop-filter: blur(6px); z-index: 10;
 }
 #info-popup h3 { font-size: 13px; margin-bottom: 6px; }
 #info-popup p  { font-size: 11px; color: #8899cc; line-height: 1.9; }
 
-#legend {
+/* 방위 표시 바 */
+#heading-bar {
   width: 100%; max-width: 520px;
   padding: 0 18px 6px;
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
+  display: flex; align-items: center; justify-content: center; gap: 10px;
 }
-.legend-item {
-  display: flex; align-items: center; gap: 5px;
-  font-size: 10px; color: #445566;
+#heading-text {
+  font-size: 20px; font-weight: 700;
+  color: #88aaff; font-variant-numeric: tabular-nums;
 }
-.legend-dot { width: 8px; height: 8px; border-radius: 50%; }
-
-#planet-section {
-  width: 100%; max-width: 520px;
-  padding: 0 18px 24px;
+#heading-dir { font-size: 13px; color: #aabbdd; }
+#heading-note { font-size: 11px; color: #334455; }
+#compass-btn {
+  display: none;
+  background: rgba(80,130,255,0.15);
+  border: 1px solid rgba(80,130,255,0.3);
+  color: #88aaff; padding: 5px 14px;
+  border-radius: 7px; cursor: pointer; font-size: 12px;
 }
-.section-label {
-  font-size: 10px; color: #334455;
-  text-transform: uppercase;
-  letter-spacing: 1.2px;
-  padding: 8px 0 6px;
-  border-top: 1px solid rgba(80,130,255,0.08);
-  margin-top: 4px;
-}
-.planet-row {
-  display: flex;
-  align-items: center;
-  padding: 9px 12px;
-  margin-bottom: 5px;
-  background: rgba(5,18,50,0.5);
-  border-radius: 8px;
-  border: 1px solid rgba(80,130,255,0.07);
-  gap: 10px;
-  cursor: pointer;
-  transition: border-color 0.15s;
-}
-.planet-row:hover { border-color: rgba(80,130,255,0.25); }
-.planet-row.selected { border-color: rgba(120,180,255,0.45); }
-.planet-row.above { border-left: 3px solid rgba(60,200,100,0.5); }
-.p-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
-.p-name { font-size: 13px; font-weight: 600; width: 56px; flex-shrink: 0; }
-.p-coords { font-size: 11px; color: #667799; flex: 1; line-height: 1.6; }
-.p-badge {
-  font-size: 10px; padding: 2px 8px;
-  border-radius: 10px; white-space: nowrap; flex-shrink: 0;
-}
-.badge-vis { background: rgba(40,180,90,0.15); color: #40cc70; }
-.badge-hid { background: rgba(60,60,80,0.3); color: #445566; }
 
 #sky-condition {
   width: 100%; max-width: 520px;
-  padding: 4px 18px 6px;
-  font-size: 11px; color: #445566;
-  text-align: center;
+  padding: 2px 18px 6px;
+  font-size: 11px; color: #445566; text-align: center;
 }
 
-#compass-section {
+#legend {
   width: 100%; max-width: 520px;
-  padding: 0 18px 10px;
+  padding: 0 18px 6px;
+  display: flex; gap: 12px; flex-wrap: wrap;
 }
-#compass-wrap {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  padding: 14px 18px;
+.legend-item { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #445566; }
+.legend-dot  { width: 8px; height: 8px; border-radius: 50%; }
+
+#planet-section { width: 100%; max-width: 520px; padding: 0 18px 24px; }
+.section-label {
+  font-size: 10px; color: #334455;
+  text-transform: uppercase; letter-spacing: 1.2px;
+  padding: 8px 0 6px;
+  border-top: 1px solid rgba(80,130,255,0.08); margin-top: 4px;
+}
+.planet-row {
+  display: flex; align-items: center;
+  padding: 9px 12px; margin-bottom: 5px;
   background: rgba(5,18,50,0.5);
-  border-radius: 12px;
-  border: 1px solid rgba(80,130,255,0.1);
+  border-radius: 8px; border: 1px solid rgba(80,130,255,0.07);
+  gap: 10px; cursor: pointer; transition: border-color 0.15s;
 }
-#compass-canvas { flex-shrink: 0; display: block; }
-#compass-info { flex: 1; }
-#compass-heading {
-  font-size: 28px; font-weight: 700;
-  color: #88aaff;
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-#compass-dir-name { font-size: 14px; color: #aabbdd; margin: 4px 0 8px; }
-#compass-note { font-size: 10px; color: #334455; line-height: 1.6; }
-#compass-btn {
-  display: none;
-  margin-top: 8px;
-  background: rgba(80,130,255,0.15);
-  border: 1px solid rgba(80,130,255,0.3);
-  color: #88aaff;
-  padding: 6px 14px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-size: 12px;
-}
+.planet-row:hover   { border-color: rgba(80,130,255,0.25); }
+.planet-row.selected{ border-color: rgba(120,180,255,0.45); }
+.planet-row.above   { border-left: 3px solid rgba(60,200,100,0.5); }
+.p-dot  { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+.p-name { font-size: 13px; font-weight: 600; width: 56px; flex-shrink: 0; }
+.p-coords { font-size: 11px; color: #667799; flex: 1; line-height: 1.6; }
+.p-badge  { font-size: 10px; padding: 2px 8px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; }
+.badge-vis{ background: rgba(40,180,90,0.15); color: #40cc70; }
+.badge-hid{ background: rgba(60,60,80,0.3);   color: #445566; }
 </style>
 </head>
 <body>
@@ -209,20 +159,14 @@ body {
   </div>
 </div>
 
-<div id="sky-condition"></div>
-
-<div id="compass-section">
-  <div class="section-label">나침반</div>
-  <div id="compass-wrap">
-    <canvas id="compass-canvas" width="120" height="120"></canvas>
-    <div id="compass-info">
-      <div id="compass-heading">---°</div>
-      <div id="compass-dir-name">---</div>
-      <div id="compass-note">기기를 수평으로 들고<br>천천히 돌려주세요</div>
-      <button id="compass-btn" onclick="requestCompass()">나침반 활성화</button>
-    </div>
-  </div>
+<div id="heading-bar">
+  <div id="heading-text">---°</div>
+  <div id="heading-dir">---</div>
+  <div id="heading-note">센서 대기 중</div>
+  <button id="compass-btn" onclick="requestCompass()">나침반 활성화</button>
 </div>
+
+<div id="sky-condition"></div>
 
 <div id="legend">
   <div class="legend-item"><div class="legend-dot" style="background:#ffd700"></div>태양</div>
@@ -238,7 +182,7 @@ body {
 </div>
 
 <script>
-// ─── Math helpers ──────────────────────────────────────────────────────────
+// ─── Math ──────────────────────────────────────────────────────────────────
 const D2R = Math.PI / 180;
 const R2D = 180 / Math.PI;
 const rad  = d => d * D2R;
@@ -247,231 +191,154 @@ const n360 = a => ((a % 360) + 360) % 360;
 
 // ─── Time ──────────────────────────────────────────────────────────────────
 function jd(date) { return date.getTime() / 86400000 + 2440587.5; }
-
-function obliquity(T) {
-  return 23.439291111 - 0.013004167*T - 1.639e-7*T*T + 5.036e-7*T*T*T;
-}
-
+function obliquity(T) { return 23.439291111 - 0.013004167*T - 1.639e-7*T*T + 5.036e-7*T*T*T; }
 function gmst(JD) {
   const T = (JD - 2451545) / 36525;
   return n360(280.46061837 + 360.98564736629*(JD-2451545) + 3.87933e-4*T*T - T*T*T/38710000);
 }
-
 function lst(JD, lon) { return n360(gmst(JD) + lon); }
 
-// ─── Kepler solver ─────────────────────────────────────────────────────────
-function kepler(M_rad, e) {
-  let E = M_rad;
+// ─── Kepler ────────────────────────────────────────────────────────────────
+function kepler(M, e) {
+  let E = M;
   for (let i = 0; i < 60; i++) {
-    const dE = (M_rad - E + e*Math.sin(E)) / (1 - e*Math.cos(E));
+    const dE = (M - E + e*Math.sin(E)) / (1 - e*Math.cos(E));
     E += dE;
     if (Math.abs(dE) < 1e-11) break;
   }
   return E;
 }
 
-// ─── Heliocentric ecliptic XYZ from orbital elements ──────────────────────
+// ─── Heliocentric ecliptic XYZ ─────────────────────────────────────────────
 function helio(el, T) {
-  const a     = el.a  + el.da  * T;
-  const e     = el.e  + el.de  * T;
-  const I     = el.I  + el.dI  * T;
-  const L     = n360(el.L  + el.dL  * T);
-  const ww    = el.w  + el.dw  * T;   // longitude of perihelion
-  const Omega = el.O  + el.dO  * T;
-
-  const omega = n360(ww - Omega);     // argument of perihelion
-  const M_rad = rad(n360(L - ww));
-  const E     = kepler(M_rad, e);
-
-  const nu = 2 * Math.atan2(
-    Math.sqrt(1+e) * Math.sin(E/2),
-    Math.sqrt(1-e) * Math.cos(E/2)
-  );
-  const r = a * (1 - e * Math.cos(E));
+  const a = el.a + el.da*T, e = el.e + el.de*T;
+  const I = el.I + el.dI*T, ww = el.w + el.dw*T;
+  const L = n360(el.L + el.dL*T), Omega = el.O + el.dO*T;
+  const omega = n360(ww - Omega);
+  const E = kepler(rad(n360(L - ww)), e);
+  const nu = 2*Math.atan2(Math.sqrt(1+e)*Math.sin(E/2), Math.sqrt(1-e)*Math.cos(E/2));
+  const r = a*(1 - e*Math.cos(E));
   const u = nu + rad(omega);
-
-  const IRad = rad(I), OR = rad(Omega);
+  const IR = rad(I), OR = rad(Omega);
   return {
-    x: r*(Math.cos(OR)*Math.cos(u) - Math.sin(OR)*Math.sin(u)*Math.cos(IRad)),
-    y: r*(Math.sin(OR)*Math.cos(u) + Math.cos(OR)*Math.sin(u)*Math.cos(IRad)),
-    z: r*Math.sin(u)*Math.sin(IRad)
+    x: r*(Math.cos(OR)*Math.cos(u) - Math.sin(OR)*Math.sin(u)*Math.cos(IR)),
+    y: r*(Math.sin(OR)*Math.cos(u) + Math.cos(OR)*Math.sin(u)*Math.cos(IR)),
+    z: r*Math.sin(u)*Math.sin(IR)
   };
 }
 
-// ─── Ecliptic → Equatorial ─────────────────────────────────────────────────
 function ecl2eq(x, y, z, eps) {
   const e = rad(eps);
-  return {
-    x,
-    y: y*Math.cos(e) - z*Math.sin(e),
-    z: y*Math.sin(e) + z*Math.cos(e)
-  };
+  return { x, y: y*Math.cos(e)-z*Math.sin(e), z: y*Math.sin(e)+z*Math.cos(e) };
 }
-
-// ─── Equatorial XYZ → RA/Dec ───────────────────────────────────────────────
 function xyz2radec(x, y, z) {
-  return {
-    ra:  n360(deg(Math.atan2(y, x))),
-    dec: deg(Math.atan2(z, Math.sqrt(x*x + y*y)))
-  };
+  return { ra: n360(deg(Math.atan2(y,x))), dec: deg(Math.atan2(z,Math.sqrt(x*x+y*y))) };
 }
-
-// ─── RA/Dec → Alt/Az ───────────────────────────────────────────────────────
 function radec2altaz(ra, dec, LST, lat) {
-  const H   = rad(n360(LST - ra));
-  const dR  = rad(dec), lR = rad(lat);
+  const H = rad(n360(LST-ra)), dR = rad(dec), lR = rad(lat);
   const sinA = Math.sin(dR)*Math.sin(lR) + Math.cos(dR)*Math.cos(lR)*Math.cos(H);
-  const alt  = deg(Math.asin(Math.max(-1, Math.min(1, sinA))));
-  const cosZ = (Math.sin(dR) - Math.sin(rad(alt))*Math.sin(lR)) / (Math.cos(rad(alt))*Math.cos(lR));
-  let az = deg(Math.acos(Math.max(-1, Math.min(1, cosZ))));
-  if (Math.sin(H) > 0) az = 360 - az;
+  const alt  = deg(Math.asin(Math.max(-1,Math.min(1,sinA))));
+  const cosZ = (Math.sin(dR)-Math.sin(rad(alt))*Math.sin(lR))/(Math.cos(rad(alt))*Math.cos(lR));
+  let az = deg(Math.acos(Math.max(-1,Math.min(1,cosZ))));
+  if (Math.sin(H) > 0) az = 360-az;
   return { alt, az };
 }
 
-// ─── Orbital elements (J2000, rates per Julian century) ───────────────────
+// ─── Orbital elements ──────────────────────────────────────────────────────
 const EARTH_EL = {
-  a:1.00000261, da:5.62e-6,
-  e:0.01671123, de:-4.392e-5,
-  I:-1.531e-5,  dI:-0.01294668,
-  L:100.46457166, dL:35999.37244981,
-  w:102.93768193, dw:0.32327364,
-  O:0, dO:0
+  a:1.00000261,da:5.62e-6, e:0.01671123,de:-4.392e-5,
+  I:-1.531e-5,dI:-0.01294668, L:100.46457166,dL:35999.37244981,
+  w:102.93768193,dw:0.32327364, O:0,dO:0
 };
-
 const BODIES = [
-  { id:'mercury', name:'수성', en:'Mercury', color:'#b8b8b8', sz:3,
-    a:0.38709927, da:3.7e-7,   e:0.20563593, de:1.906e-5,
-    I:7.00497902, dI:-5.94749e-3, L:252.25032350, dL:149472.67411175,
-    w:77.45779628, dw:0.16047689, O:48.33076593, dO:-0.12534081 },
-  { id:'venus',   name:'금성', en:'Venus',   color:'#ffe060', sz:5,
-    a:0.72333566, da:3.9e-7,   e:0.00677672, de:-4.107e-5,
-    I:3.39467605, dI:-7.889e-4, L:181.97909950, dL:58517.81538729,
-    w:131.60246718, dw:2.68329e-3, O:76.67984255, dO:-0.27769418 },
-  { id:'mars',    name:'화성', en:'Mars',    color:'#ff5533', sz:4,
-    a:1.52371034, da:1.847e-5, e:0.09339410, de:7.882e-5,
-    I:1.84969142, dI:-8.13131e-3, L:-4.55343205, dL:19140.30268499,
-    w:-23.94362959, dw:0.44441088, O:49.55953891, dO:-0.29257343 },
-  { id:'jupiter', name:'목성', en:'Jupiter', color:'#ffaa55', sz:7,
-    a:5.20288700, da:-1.1607e-4, e:0.04838624, de:-1.3253e-4,
-    I:1.30439695, dI:-1.83714e-3, L:34.39644051, dL:3034.74612775,
-    w:14.72847983, dw:0.21252668, O:100.47390909, dO:0.20469106 },
-  { id:'saturn',  name:'토성', en:'Saturn',  color:'#ddbb70', sz:6,
-    a:9.53667594, da:-1.2506e-3, e:0.05386179, de:-5.0991e-4,
-    I:2.48599187, dI:1.93609e-3, L:49.95424423, dL:1222.49362201,
-    w:92.59887831, dw:-0.41897216, O:113.66242448, dO:-0.28867794 },
-  { id:'uranus',  name:'천왕성', en:'Uranus', color:'#88ddff', sz:3,
-    a:19.18916464, da:-1.96176e-3, e:0.04725744, de:-4.397e-5,
-    I:0.77263783, dI:-2.42939e-3, L:313.23810451, dL:428.48202785,
-    w:170.95427630, dw:0.40805281, O:74.01692503, dO:0.04240589 },
-  { id:'neptune', name:'해왕성', en:'Neptune', color:'#4488ff', sz:3,
-    a:30.06992276, da:2.6291e-4, e:0.00859048, de:5.105e-5,
-    I:1.77004347, dI:3.5372e-4, L:-55.12002969, dL:218.45945325,
-    w:44.96476227, dw:-0.32241464, O:131.78422574, dO:-5.08664e-3 }
+  {id:'mercury',name:'수성',en:'Mercury',color:'#b8b8b8',sz:3,
+   a:0.38709927,da:3.7e-7,e:0.20563593,de:1.906e-5,I:7.00497902,dI:-5.94749e-3,
+   L:252.25032350,dL:149472.67411175,w:77.45779628,dw:0.16047689,O:48.33076593,dO:-0.12534081},
+  {id:'venus',name:'금성',en:'Venus',color:'#ffe060',sz:5,
+   a:0.72333566,da:3.9e-7,e:0.00677672,de:-4.107e-5,I:3.39467605,dI:-7.889e-4,
+   L:181.97909950,dL:58517.81538729,w:131.60246718,dw:2.68329e-3,O:76.67984255,dO:-0.27769418},
+  {id:'mars',name:'화성',en:'Mars',color:'#ff5533',sz:4,
+   a:1.52371034,da:1.847e-5,e:0.09339410,de:7.882e-5,I:1.84969142,dI:-8.13131e-3,
+   L:-4.55343205,dL:19140.30268499,w:-23.94362959,dw:0.44441088,O:49.55953891,dO:-0.29257343},
+  {id:'jupiter',name:'목성',en:'Jupiter',color:'#ffaa55',sz:7,
+   a:5.20288700,da:-1.1607e-4,e:0.04838624,de:-1.3253e-4,I:1.30439695,dI:-1.83714e-3,
+   L:34.39644051,dL:3034.74612775,w:14.72847983,dw:0.21252668,O:100.47390909,dO:0.20469106},
+  {id:'saturn',name:'토성',en:'Saturn',color:'#ddbb70',sz:6,
+   a:9.53667594,da:-1.2506e-3,e:0.05386179,de:-5.0991e-4,I:2.48599187,dI:1.93609e-3,
+   L:49.95424423,dL:1222.49362201,w:92.59887831,dw:-0.41897216,O:113.66242448,dO:-0.28867794},
+  {id:'uranus',name:'천왕성',en:'Uranus',color:'#88ddff',sz:3,
+   a:19.18916464,da:-1.96176e-3,e:0.04725744,de:-4.397e-5,I:0.77263783,dI:-2.42939e-3,
+   L:313.23810451,dL:428.48202785,w:170.95427630,dw:0.40805281,O:74.01692503,dO:0.04240589},
+  {id:'neptune',name:'해왕성',en:'Neptune',color:'#4488ff',sz:3,
+   a:30.06992276,da:2.6291e-4,e:0.00859048,de:5.105e-5,I:1.77004347,dI:3.5372e-4,
+   L:-55.12002969,dL:218.45945325,w:44.96476227,dw:-0.32241464,O:131.78422574,dO:-5.08664e-3}
 ];
 
-// ─── Sun position (simplified) ─────────────────────────────────────────────
+// ─── Sun ───────────────────────────────────────────────────────────────────
 function sunPosition(JD, lat, lon) {
-  const T   = (JD - 2451545) / 36525;
-  const L0  = n360(280.46646 + 36000.76983*T);
-  const M   = n360(357.52911 + 35999.05029*T - 1.537e-4*T*T);
-  const Mr  = rad(M);
-  const C   = (1.914602 - 4.817e-3*T - 1.4e-5*T*T)*Math.sin(Mr)
-            + (1.9993e-2 - 1.01e-4*T)*Math.sin(2*Mr)
-            + 2.89e-4*Math.sin(3*Mr);
-  const sunL = n360(L0 + C);
-  const om  = 125.04 - 1934.136*T;
-  const lam = sunL - 0.00569 - 0.00478*Math.sin(rad(om));
-  const eps = obliquity(T) + 0.00256*Math.cos(rad(om));
+  const T = (JD-2451545)/36525;
+  const L0 = n360(280.46646+36000.76983*T);
+  const M  = n360(357.52911+35999.05029*T-1.537e-4*T*T), Mr = rad(M);
+  const C  = (1.914602-4.817e-3*T-1.4e-5*T*T)*Math.sin(Mr)
+           + (1.9993e-2-1.01e-4*T)*Math.sin(2*Mr) + 2.89e-4*Math.sin(3*Mr);
+  const om  = 125.04-1934.136*T;
+  const lam = n360(L0+C) - 0.00569 - 0.00478*Math.sin(rad(om));
+  const eps = obliquity(T)+0.00256*Math.cos(rad(om));
   const lr  = rad(lam), er = rad(eps);
   const ra  = n360(deg(Math.atan2(Math.cos(er)*Math.sin(lr), Math.cos(lr))));
   const dc  = deg(Math.asin(Math.sin(er)*Math.sin(lr)));
-  const LST = lst(JD, lon);
-  const { alt, az } = radec2altaz(ra, dc, LST, lat);
-  return { id:'sun', name:'태양', color:'#ffd700', sz:9, ra, dec:dc, alt, az, dist:1 };
+  const {alt,az} = radec2altaz(ra, dc, lst(JD,lon), lat);
+  return {id:'sun',name:'태양',color:'#ffd700',sz:9,ra,dec:dc,alt,az,dist:1};
 }
 
-// ─── Moon position (simplified Meeus Ch.47 main terms) ─────────────────────
+// ─── Moon ──────────────────────────────────────────────────────────────────
 function moonPosition(JD, lat, lon) {
-  const T   = (JD - 2451545) / 36525;
-  const L0  = n360(218.3164477 + 481267.88123421*T - 1.5786e-3*T*T);
-  const Mm  = n360(134.9633964 + 477198.8675055*T  + 8.7414e-3*T*T);
-  const Ms  = n360(357.5291092 + 35999.0502909*T   - 1.536e-4*T*T);
-  const F   = n360(93.2720950  + 483202.0175233*T  - 3.6539e-3*T*T);
-  const D   = n360(297.8501921 + 445267.1114034*T  - 1.8819e-3*T*T);
-  const Om  = n360(125.0445479 - 1934.1362608*T    + 2.0754e-3*T*T);
-
-  const dL = 6.289*Math.sin(rad(Mm))
-           - 1.274*Math.sin(rad(2*D - Mm))
-           + 0.658*Math.sin(rad(2*D))
-           - 0.214*Math.sin(rad(2*Mm))
-           - 0.186*Math.sin(rad(Ms))
-           - 0.114*Math.sin(rad(2*F))
-           + 0.059*Math.sin(rad(2*Mm - 2*D))
-           + 0.057*Math.sin(rad(Mm - 2*D + Ms))
-           + 0.053*Math.sin(rad(Mm + 2*D))
-           + 0.046*Math.sin(rad(2*D - Ms))
-           + 0.041*Math.sin(rad(Mm - Ms))
-           - 0.035*Math.sin(rad(D))
-           - 0.031*Math.sin(rad(Mm + Ms))
-           - 0.015*Math.sin(rad(2*F - 2*D))
-           + 0.011*Math.sin(rad(Mm - 4*D));
-
-  const dB = 5.128*Math.sin(rad(F))
-           + 0.280*Math.sin(rad(Mm+F))
-           + 0.277*Math.sin(rad(Mm-F))
-           + 0.173*Math.sin(rad(2*D-F))
-           + 0.055*Math.sin(rad(2*D-Mm+F))
-           - 0.046*Math.sin(rad(2*D-Mm-F))
-           + 0.033*Math.sin(rad(2*D+F))
-           + 0.017*Math.sin(rad(2*Mm+F));
-
-  const lam  = rad(n360(L0 + dL));
-  const beta = rad(dB);
-  const eps  = rad(obliquity(T));
-
-  const ra  = n360(deg(Math.atan2(Math.sin(lam)*Math.cos(eps) - Math.tan(beta)*Math.sin(eps), Math.cos(lam))));
-  const dc  = deg(Math.asin(Math.sin(beta)*Math.cos(eps) + Math.cos(beta)*Math.sin(eps)*Math.sin(lam)));
-  const LST = lst(JD, lon);
-  const { alt, az } = radec2altaz(ra, dc, LST, lat);
-
-  // Moon phase (0=new, 0.5=full)
-  const elong = n360(deg(lam) - (n360(deg(lam) - deg(lam)))); // simplified elongation
-  const elongD = n360(deg(lam) - sunPosition._lambda || 0);
-  const phase = (1 - Math.cos(rad(n360(deg(lam) - (sunPosition._L0 || 0))))) / 2;
-
-  return { id:'moon', name:'달', color:'#dde8ff', sz:7, ra, dec:dc, alt, az, dist:0.00257, phase };
+  const T  = (JD-2451545)/36525;
+  const L0 = n360(218.3164477+481267.88123421*T-1.5786e-3*T*T);
+  const Mm = n360(134.9633964+477198.8675055*T +8.7414e-3*T*T);
+  const Ms = n360(357.5291092+35999.0502909*T  -1.536e-4*T*T);
+  const F  = n360(93.2720950 +483202.0175233*T -3.6539e-3*T*T);
+  const D  = n360(297.8501921+445267.1114034*T -1.8819e-3*T*T);
+  const dL = 6.289*Math.sin(rad(Mm))-1.274*Math.sin(rad(2*D-Mm))+0.658*Math.sin(rad(2*D))
+           - 0.214*Math.sin(rad(2*Mm))-0.186*Math.sin(rad(Ms))-0.114*Math.sin(rad(2*F))
+           + 0.059*Math.sin(rad(2*Mm-2*D))+0.057*Math.sin(rad(Mm-2*D+Ms))
+           + 0.053*Math.sin(rad(Mm+2*D))+0.046*Math.sin(rad(2*D-Ms))
+           + 0.041*Math.sin(rad(Mm-Ms))-0.035*Math.sin(rad(D))
+           - 0.031*Math.sin(rad(Mm+Ms))-0.015*Math.sin(rad(2*F-2*D))+0.011*Math.sin(rad(Mm-4*D));
+  const dB = 5.128*Math.sin(rad(F))+0.280*Math.sin(rad(Mm+F))+0.277*Math.sin(rad(Mm-F))
+           + 0.173*Math.sin(rad(2*D-F))+0.055*Math.sin(rad(2*D-Mm+F))
+           - 0.046*Math.sin(rad(2*D-Mm-F))+0.033*Math.sin(rad(2*D+F))+0.017*Math.sin(rad(2*Mm+F));
+  const lam = rad(n360(L0+dL)), beta = rad(dB), eps = rad(obliquity(T));
+  const ra  = n360(deg(Math.atan2(Math.sin(lam)*Math.cos(eps)-Math.tan(beta)*Math.sin(eps), Math.cos(lam))));
+  const dc  = deg(Math.asin(Math.sin(beta)*Math.cos(eps)+Math.cos(beta)*Math.sin(eps)*Math.sin(lam)));
+  const {alt,az} = radec2altaz(ra, dc, lst(JD,lon), lat);
+  return {id:'moon',name:'달',color:'#dde8ff',sz:7,ra,dec:dc,alt,az,dist:0.00257};
 }
 
-// ─── Compute planet position ────────────────────────────────────────────────
+// ─── Planet ────────────────────────────────────────────────────────────────
 function planetPos(body, JD, lat, lon) {
-  const T   = (JD - 2451545) / 36525;
+  const T   = (JD-2451545)/36525;
   const eps = obliquity(T);
-  const LST = lst(JD, lon);
-
-  const earth = ecl2eq(...Object.values(helio(EARTH_EL, T)), eps);
-  const p     = helio(body, T);
-  const peq   = ecl2eq(p.x, p.y, p.z, eps);
-
-  const gx = peq.x - earth.x;
-  const gy = peq.y - earth.y;
-  const gz = peq.z - earth.z;
-  const dist = Math.sqrt(gx*gx + gy*gy + gz*gz);
-
-  const { ra, dec } = xyz2radec(gx, gy, gz);
-  const { alt, az } = radec2altaz(ra, dec, LST, lat);
-
-  return { ...body, ra, dec, alt, az, dist };
+  const earth = ecl2eq(...Object.values(helio(EARTH_EL,T)), eps);
+  const p     = helio(body,T);
+  const peq   = ecl2eq(p.x,p.y,p.z,eps);
+  const gx = peq.x-earth.x, gy = peq.y-earth.y, gz = peq.z-earth.z;
+  const dist = Math.sqrt(gx*gx+gy*gy+gz*gz);
+  const {ra,dec} = xyz2radec(gx,gy,gz);
+  const {alt,az} = radec2altaz(ra,dec,lst(JD,lon),lat);
+  return {...body, ra, dec, alt, az, dist};
 }
 
-// ─── Canvas ────────────────────────────────────────────────────────────────
+// ─── Canvas & state ────────────────────────────────────────────────────────
 const canvas = document.getElementById('sky-canvas');
 const ctx    = canvas.getContext('2d');
 let CW = 0, allBodies = [], selId = null, stars = null;
+let compassSmooth = null;   // 저역통과 필터 적용된 표시 방위
 
 function resize() {
   const w = document.getElementById('sky-wrap').clientWidth - 20;
-  const s = Math.min(w, 480);
-  canvas.width = canvas.height = CW = s;
+  CW = Math.min(w, 480);
+  canvas.width = canvas.height = CW;
   stars = null;
   if (allBodies.length) drawSky();
 }
@@ -480,37 +347,49 @@ function mkStars() {
   stars = [];
   const r = CW/2 - 6;
   for (let i = 0; i < 250; i++) {
-    const ang = Math.random() * 2*Math.PI;
-    const rs  = Math.random() * r;
-    stars.push({ x: CW/2 + rs*Math.cos(ang), y: CW/2 + rs*Math.sin(ang),
-                 r: Math.random()*1.3+0.2, a: Math.random()*0.6+0.2 });
+    const a = Math.random()*2*Math.PI, rs = Math.random()*r;
+    stars.push({x: CW/2+rs*Math.cos(a), y: CW/2+rs*Math.sin(a),
+                r: Math.random()*1.3+0.2, a: Math.random()*0.6+0.2});
   }
 }
 
+// alt/az → 캔버스 좌표 (회전 전 기준, N=위)
 function altaz2xy(alt, az) {
-  const r   = CW/2 - 6;
+  const r = CW/2 - 6;
   const rho = (1 - alt/90) * r;
-  return { x: CW/2 + rho*Math.sin(rad(az)), y: CW/2 - rho*Math.cos(rad(az)) };
+  return {x: CW/2 + rho*Math.sin(rad(az)), y: CW/2 - rho*Math.cos(rad(az))};
 }
 
+// ─── 통합 하늘+나침반 그리기 ───────────────────────────────────────────────
 function drawSky() {
   if (!CW) return;
   const cx = CW/2, cy = CW/2, R = CW/2 - 6;
+
+  // 나침반 회전량: 기기가 h° 방향을 보면 하늘을 -h° 회전해 실제 북이 위로 오게 함
+  const h   = compassSmooth !== null ? compassSmooth : 0;
+  const rot = -rad(h);
+
   ctx.clearRect(0, 0, CW, CW);
 
-  // Sky gradient
-  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, R);
-  g.addColorStop(0,   '#0d1a3a');
-  g.addColorStop(0.6, '#060e22');
-  g.addColorStop(1,   '#020810');
+  // ── 하늘 배경 (클리핑 원) ─────────────────────────────────────────────
+  const skyG = ctx.createRadialGradient(cx,cy,0,cx,cy,R);
+  skyG.addColorStop(0,   '#0d1a3a');
+  skyG.addColorStop(0.6, '#060e22');
+  skyG.addColorStop(1,   '#020810');
   ctx.save();
   ctx.beginPath();
   ctx.arc(cx, cy, R, 0, 2*Math.PI);
-  ctx.fillStyle = g;
+  ctx.fillStyle = skyG;
   ctx.fill();
   ctx.clip();
 
-  // Stars
+  // ── 회전 그룹 (방위에 따라 함께 돌아감) ──────────────────────────────
+  ctx.save();
+  ctx.translate(cx, cy);
+  ctx.rotate(rot);
+  ctx.translate(-cx, -cy);
+
+  // 별
   if (!stars) mkStars();
   stars.forEach(s => {
     ctx.beginPath();
@@ -519,9 +398,9 @@ function drawSky() {
     ctx.fill();
   });
 
-  // Altitude rings
-  [30, 60].forEach(a => {
-    const rr = (1 - a/90) * R;
+  // 고도 링 (원이라 회전 무관하지만, 눈금 레이블은 역회전으로 가독성 유지)
+  [30, 60].forEach(alt => {
+    const rr = (1-alt/90)*R;
     ctx.beginPath();
     ctx.arc(cx, cy, rr, 0, 2*Math.PI);
     ctx.strokeStyle = 'rgba(80,130,220,0.12)';
@@ -529,101 +408,195 @@ function drawSky() {
     ctx.setLineDash([4, 8]);
     ctx.stroke();
     ctx.setLineDash([]);
-    ctx.fillStyle = 'rgba(80,130,220,0.28)';
+    // 레이블은 항상 읽기 쉽게 역회전
+    ctx.save();
+    ctx.translate(cx + rr + 3, cy);
+    ctx.rotate(-rot);
+    ctx.fillStyle = 'rgba(80,130,220,0.3)';
     ctx.font = '9px sans-serif';
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(`${a}°`, cx + rr + 3, cy);
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(`${alt}°`, 0, 0);
+    ctx.restore();
   });
 
-  // Compass lines
+  // 방위선
   [0, 90, 180, 270].forEach(az => {
-    const { x, y } = altaz2xy(0, az);
+    const {x,y} = altaz2xy(0, az);
     ctx.beginPath();
     ctx.moveTo(cx, cy);
     ctx.lineTo(x, y);
-    ctx.strokeStyle = 'rgba(80,130,220,0.08)';
+    ctx.strokeStyle = 'rgba(80,130,220,0.1)';
     ctx.lineWidth = 1;
     ctx.stroke();
   });
 
-  // Compass labels
-  const compass = [['N', 0,'#ff7766'], ['E', 90,'#8899cc'], ['S', 180,'#8899cc'], ['W', 270,'#8899cc']];
-  ctx.font = 'bold 10px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  compass.forEach(([lbl, az, col]) => {
-    const { x, y } = altaz2xy(2, az);
+  // 나침반 눈금 (베젤 안쪽, 매 10°)
+  for (let i = 0; i < 36; i++) {
+    const a     = rad(i*10);
+    const outer = R - 2;
+    const inner = i % 9 === 0 ? R-14 : (i % 3 === 0 ? R-10 : R-7);
+    ctx.beginPath();
+    ctx.moveTo(cx + Math.sin(a)*outer, cy - Math.cos(a)*outer);
+    ctx.lineTo(cx + Math.sin(a)*inner, cy - Math.cos(a)*inner);
+    ctx.strokeStyle = i % 9 === 0 ? 'rgba(160,190,255,0.55)' : 'rgba(80,120,200,0.25)';
+    ctx.lineWidth   = i % 9 === 0 ? 1.2 : 0.7;
+    ctx.stroke();
+  }
+
+  // 방위 레이블 (N/E/S/W, 한글)
+  const dirs = [
+    ['N','북', 0,   '#ff7766', 12],
+    ['E','동', 90,  '#99aadd', 10],
+    ['S','남', 180, '#99aadd', 10],
+    ['W','서', 270, '#99aadd', 10],
+  ];
+  dirs.forEach(([en, ko, az, col, fs]) => {
+    const {x,y} = altaz2xy(1, az);
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(-rot);   // 항상 가독성 있게 역회전
     ctx.fillStyle = col;
-    ctx.fillText(lbl, x, y);
+    ctx.font = `bold ${fs}px sans-serif`;
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(en, 0, -7);
+    ctx.font = `${fs-2}px sans-serif`;
+    ctx.fillStyle = col + 'cc';
+    ctx.fillText(ko, 0, 5);
+    ctx.restore();
   });
 
-  // Bodies
+  // 행성
   allBodies.forEach(b => {
     if (b.alt <= 0) return;
-    const { x, y } = altaz2xy(b.alt, b.az);
+    const {x,y} = altaz2xy(b.alt, b.az);
+    b._rawX = x; b._rawY = y;   // 회전 전 좌표 (클릭 판정용)
 
-    // Glow
-    const gd = ctx.createRadialGradient(x, y, 0, x, y, b.sz*3.5);
-    gd.addColorStop(0, b.color + 'aa');
+    // 글로우
+    const gd = ctx.createRadialGradient(x,y,0,x,y,b.sz*3.5);
+    gd.addColorStop(0, b.color+'aa');
     gd.addColorStop(1, 'transparent');
     ctx.beginPath();
     ctx.arc(x, y, b.sz*3.5, 0, 2*Math.PI);
-    ctx.fillStyle = gd;
-    ctx.fill();
+    ctx.fillStyle = gd; ctx.fill();
 
-    // Body dot
+    // 점
     ctx.beginPath();
     ctx.arc(x, y, b.sz, 0, 2*Math.PI);
-    ctx.fillStyle = b.color;
-    ctx.fill();
+    ctx.fillStyle = b.color; ctx.fill();
 
-    // Selection ring
+    // 선택 링
     if (b.id === selId) {
       ctx.beginPath();
-      ctx.arc(x, y, b.sz + 4, 0, 2*Math.PI);
+      ctx.arc(x, y, b.sz+4, 0, 2*Math.PI);
       ctx.strokeStyle = 'rgba(255,255,255,0.7)';
-      ctx.lineWidth = 1.5;
-      ctx.stroke();
+      ctx.lineWidth = 1.5; ctx.stroke();
     }
 
-    // Label
+    // 이름 레이블 (역회전으로 항상 읽기 쉽게)
+    ctx.save();
+    ctx.translate(x + b.sz + 5, y);
+    ctx.rotate(-rot);
     ctx.fillStyle = b.color;
     ctx.font = `${b.sz > 5 ? 11 : 10}px sans-serif`;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(b.name, x + b.sz + 5, y);
-
-    b._cx = x; b._cy = y;
+    ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+    ctx.fillText(b.name, 0, 0);
+    ctx.restore();
   });
 
-  ctx.restore();
+  ctx.restore(); // ── 회전 그룹 끝 ──
 
-  // Outer ring
+  // ── 고정 오버레이 (회전 안 함) ──────────────────────────────────────
+  drawNeedle(cx, cy, R);
+
+  ctx.restore(); // ── 클리핑 끝 ──
+
+  // 외부 베젤 링
   ctx.beginPath();
   ctx.arc(cx, cy, R, 0, 2*Math.PI);
-  ctx.strokeStyle = 'rgba(80,130,220,0.25)';
+  ctx.strokeStyle = compassSmooth !== null
+    ? 'rgba(100,160,255,0.35)'
+    : 'rgba(80,130,220,0.2)';
   ctx.lineWidth = 2;
   ctx.stroke();
 
-  // Labels
-  ctx.fillStyle = 'rgba(80,130,220,0.35)';
-  ctx.font = '9px sans-serif';
-  ctx.textAlign = 'center';
+  // 천정 레이블
+  ctx.fillStyle = 'rgba(80,130,220,0.3)';
+  ctx.font = '9px sans-serif'; ctx.textAlign = 'center';
   ctx.fillText('천정', cx, cy - R + 12);
-  ctx.fillText('지평선', cx, cy + R - 6);
 }
 
-// ─── Click on canvas ───────────────────────────────────────────────────────
+// ─── 중앙 나침반 바늘 ──────────────────────────────────────────────────────
+function drawNeedle(cx, cy, R) {
+  const L = R * 0.22;   // 바늘 길이
+
+  ctx.save();
+  ctx.translate(cx, cy);
+
+  // 바늘 그림자
+  ctx.shadowColor = 'rgba(0,0,0,0.7)';
+  ctx.shadowBlur  = 6;
+
+  // 북쪽 (위, 빨강)
+  ctx.beginPath();
+  ctx.moveTo(0, -L);
+  ctx.lineTo(-5.5, 0);
+  ctx.lineTo(0,  5);
+  ctx.lineTo(5.5, 0);
+  ctx.closePath();
+  ctx.fillStyle = '#ff3333';
+  ctx.fill();
+
+  // 남쪽 (아래, 흰색)
+  ctx.beginPath();
+  ctx.moveTo(0,  L);
+  ctx.lineTo(-5.5, 0);
+  ctx.lineTo(0, -5);
+  ctx.lineTo(5.5, 0);
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(200,215,255,0.85)';
+  ctx.fill();
+
+  ctx.shadowBlur = 0;
+
+  // 중심 원
+  ctx.beginPath();
+  ctx.arc(0, 0, 5, 0, 2*Math.PI);
+  ctx.fillStyle = '#ddeeff';
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(30,60,120,0.8)';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // 북 삼각형 고정 마커 (원 가장자리 상단)
+  ctx.beginPath();
+  ctx.moveTo(0, -(R-2));
+  ctx.lineTo(-4, -(R-11));
+  ctx.lineTo( 4, -(R-11));
+  ctx.closePath();
+  ctx.fillStyle = 'rgba(255,80,60,0.75)';
+  ctx.fill();
+
+  ctx.restore();
+}
+
+// ─── 클릭 (역회전으로 좌표 변환) ──────────────────────────────────────────
 canvas.addEventListener('click', e => {
   const rect = canvas.getBoundingClientRect();
-  const sx = canvas.width / rect.width;
-  const sy = canvas.height / rect.height;
-  const mx = (e.clientX - rect.left) * sx;
-  const my = (e.clientY - rect.top)  * sy;
+  const sx = CW / rect.width, sy = CW / rect.height;
+  const mx = (e.clientX - rect.left)*sx;
+  const my = (e.clientY - rect.top )*sy;
+  const cx = CW/2, cy = CW/2;
+
+  // 클릭 좌표를 하늘 회전 전 좌표계로 역변환
+  const h  = rad(compassSmooth || 0);
+  const dx = mx-cx, dy = my-cy;
+  const rx = cx + dx*Math.cos(h) + dy*Math.sin(h);
+  const ry = cy - dx*Math.sin(h) + dy*Math.cos(h);
 
   let hit = null, best = Infinity;
   allBodies.forEach(b => {
-    if (b._cx === undefined) return;
-    const d = Math.hypot(mx - b._cx, my - b._cy);
+    if (b._rawX === undefined) return;
+    const d = Math.hypot(rx - b._rawX, ry - b._rawY);
     if (d < 22 && d < best) { best = d; hit = b; }
   });
 
@@ -642,35 +615,26 @@ function showPopup(b, cx, cy) {
   const pop = document.getElementById('info-popup');
   document.getElementById('popup-title').textContent = b.name + (b.en ? ` (${b.en})` : '');
   document.getElementById('popup-title').style.color = b.color;
-  document.getElementById('popup-body').innerHTML = `
-고도: ${b.alt.toFixed(2)}°<br>
-방위각: ${b.az.toFixed(2)}° (${az2dir(b.az)})<br>
-적경: ${(b.ra/15).toFixed(3)}h<br>
-적위: ${b.dec.toFixed(3)}°<br>
-거리: ${b.dist < 0.01 ? (b.dist*149597870.7).toFixed(0)+' km' : b.dist.toFixed(4)+' AU'}<br>
-상태: ${b.alt > 0 ? '🟢 관측 가능' : '🔴 지평선 아래'}`;
-
+  document.getElementById('popup-body').innerHTML =
+    `고도: ${b.alt.toFixed(2)}°<br>방위각: ${b.az.toFixed(2)}° (${az2dir(b.az)})<br>`+
+    `적경: ${(b.ra/15).toFixed(3)}h<br>적위: ${b.dec.toFixed(3)}°<br>`+
+    `거리: ${b.dist<0.01?(b.dist*149597870.7).toFixed(0)+' km':b.dist.toFixed(4)+' AU'}<br>`+
+    `상태: ${b.alt>0?'🟢 관측 가능':'🔴 지평선 아래'}`;
   pop.style.display = 'block';
-  const wrap = document.getElementById('sky-wrap');
-  const wr = wrap.getBoundingClientRect();
-  let px = cx - wr.left + 10;
-  let py = cy - wr.top  - 60;
-  px = Math.max(4, Math.min(px, wr.width - 175));
-  py = Math.max(4, py);
-  pop.style.left = px + 'px';
-  pop.style.top  = py + 'px';
+  const wr = document.getElementById('sky-wrap').getBoundingClientRect();
+  let px = cx-wr.left+10, py = cy-wr.top-60;
+  px = Math.max(4, Math.min(px, wr.width-175)); py = Math.max(4, py);
+  pop.style.left = px+'px'; pop.style.top = py+'px';
 }
 
-// ─── Planet list ───────────────────────────────────────────────────────────
-function az2dir(az) {
-  const d = ['북','북북동','북동','동북동','동','동남동','남동','남남동',
-             '남','남남서','남서','서남서','서','서북서','북서','북북서'];
-  return d[Math.round(az / 22.5) % 16];
-}
+// ─── 행성 목록 ────────────────────────────────────────────────────────────
+const DIR16 = ['북','북북동','북동','동북동','동','동남동','남동','남남동',
+               '남','남남서','남서','서남서','서','서북서','북서','북북서'];
+function az2dir(az) { return DIR16[Math.round(az/22.5) % 16]; }
 
 function renderList() {
   const el = document.getElementById('planet-list');
-  const sorted = [...allBodies].sort((a, b) => b.alt - a.alt);
+  const sorted = [...allBodies].sort((a,b) => b.alt-a.alt);
   el.innerHTML = sorted.map(b => `
     <div class="planet-row ${b.alt>0?'above':''} ${b.id===selId?'selected':''}" data-id="${b.id}">
       <div class="p-dot" style="background:${b.color}"></div>
@@ -681,272 +645,92 @@ function renderList() {
       </div>
       <div class="p-badge ${b.alt>0?'badge-vis':'badge-hid'}">${b.alt>0?'관측 가능':'지평선 아래'}</div>
     </div>`).join('');
-
   el.querySelectorAll('.planet-row').forEach(row => {
     row.addEventListener('click', () => {
       const b = allBodies.find(x => x.id === row.dataset.id);
       if (!b) return;
       selId = b.id;
-      drawSky();
-      renderList();
-      if (b.alt > 0 && b._cx !== undefined) {
-        const wrap = document.getElementById('sky-wrap');
-        const wr = wrap.getBoundingClientRect();
-        const scaleX = CW / (wr.width - 20);
-        showPopup(b, wr.left + b._cx/scaleX, wr.top + b._cy/scaleX);
+      drawSky(); renderList();
+      if (b.alt > 0 && b._rawX !== undefined) {
+        const wr  = document.getElementById('sky-wrap').getBoundingClientRect();
+        const h   = rad(compassSmooth || 0);
+        const dx  = b._rawX - CW/2, dy = b._rawY - CW/2;
+        const scl = (wr.width-20) / CW;
+        const sx  = wr.left + (CW/2 + dx*Math.cos(-h) - dy*Math.sin(-h)) * scl + 10;
+        const sy  = wr.top  + (CW/2 + dx*Math.sin(-h) + dy*Math.cos(-h)) * scl - 60;
+        showPopup(b, sx, sy);
       } else {
-        showPopup(b, 60, 60);
+        showPopup(b, 80, 80);
       }
     });
   });
 }
 
-// ─── Sky condition banner ──────────────────────────────────────────────────
+// ─── 하늘 상태 ────────────────────────────────────────────────────────────
 function skyCondition() {
-  const sun = allBodies.find(b => b.id === 'sun');
+  const sun = allBodies.find(b => b.id==='sun');
   if (!sun) return;
   const a = sun.alt;
-  let msg = '';
-  if      (a > 6)   msg = '🌞 낮 — 행성 관측 불가';
-  else if (a > 0)   msg = '🌅 일출/일몰 — 수성·금성 탐색 가능';
-  else if (a > -6)  msg = '🌆 박명(시민 박명) — 밝은 행성 관측';
-  else if (a > -12) msg = '🌇 항해 박명 — 대부분 행성 관측';
-  else if (a > -18) msg = '🌃 천문 박명 — 거의 야간';
-  else              msg = '🌌 완전 야간 — 최적 관측';
+  const msg = a>6   ? '🌞 낮 — 행성 관측 불가'
+            : a>0   ? '🌅 일출/일몰 — 수성·금성 탐색 가능'
+            : a>-6  ? '🌆 시민 박명 — 밝은 행성 관측'
+            : a>-12 ? '🌇 항해 박명 — 대부분 행성 관측'
+            : a>-18 ? '🌃 천문 박명 — 거의 야간'
+            :         '🌌 완전 야간 — 최적 관측';
   document.getElementById('sky-condition').textContent = msg;
 }
 
-// ─── Main update ───────────────────────────────────────────────────────────
+// ─── 메인 업데이트 ────────────────────────────────────────────────────────
 let userLat = 37.5665, userLon = 126.9780;
 
 function updateAll() {
   const now = new Date();
-  const JD  = jd(now);
-
-  // Time display
   document.getElementById('time-display').textContent =
-    now.toLocaleDateString('ko-KR', {year:'numeric',month:'short',day:'numeric'}) + '  ' +
+    now.toLocaleDateString('ko-KR',{year:'numeric',month:'short',day:'numeric'})+'  '+
     now.toLocaleTimeString('ko-KR');
-
-  // All bodies
+  const JD = jd(now);
   allBodies = [
     sunPosition(JD, userLat, userLon),
     moonPosition(JD, userLat, userLon),
     ...BODIES.map(b => planetPos(b, JD, userLat, userLon))
   ];
-
   drawSky();
   renderList();
   skyCondition();
 }
 
-// ─── Geolocation ───────────────────────────────────────────────────────────
-function initLocation() {
-  if (!navigator.geolocation) { startWithDefault('위치 서비스 미지원 — 서울 기본값'); return; }
-  navigator.geolocation.getCurrentPosition(
-    pos => {
-      userLat = pos.coords.latitude;
-      userLon = pos.coords.longitude;
-      document.getElementById('loc-display').textContent =
-        `위도 ${userLat.toFixed(4)}°  경도 ${userLon.toFixed(4)}°`;
-      document.getElementById('loading').style.display = 'none';
-      resize();
-      updateAll();
-      setInterval(updateAll, 60000);
-    },
-    () => startWithDefault('위치 권한 없음 — 서울 기본값')
-  );
-}
-
-function startWithDefault(msg) {
-  document.getElementById('loc-display').textContent = msg;
-  document.getElementById('loading').style.display = 'none';
-  resize();
-  updateAll();
-  setInterval(updateAll, 60000);
-}
-
-// ─── Compass ───────────────────────────────────────────────────────────────
-const compassCanvas = document.getElementById('compass-canvas');
-const cctx = compassCanvas.getContext('2d');
-let compassSmooth = null;   // 저역통과 필터 적용된 표시값
-
-const DIR16 = ['북','북북동','북동','동북동','동','동남동','남동','남남동',
-               '남','남남서','남서','서남서','서','서북서','북서','북북서'];
-
-function heading2name(h) { return DIR16[Math.round(h / 22.5) % 16]; }
-
-function drawCompass(heading) {
-  const W = compassCanvas.width, H = compassCanvas.height;
-  const cx = W/2, cy = H/2, R = W/2 - 4;
-  cctx.clearRect(0, 0, W, H);
-
-  // Outer bezel
-  const bezel = cctx.createRadialGradient(cx, cy, R-6, cx, cy, R);
-  bezel.addColorStop(0, 'rgba(30,60,120,0.8)');
-  bezel.addColorStop(1, 'rgba(10,20,50,0.9)');
-  cctx.beginPath();
-  cctx.arc(cx, cy, R, 0, 2*Math.PI);
-  cctx.fillStyle = bezel;
-  cctx.fill();
-  cctx.strokeStyle = 'rgba(80,130,255,0.3)';
-  cctx.lineWidth = 1.5;
-  cctx.stroke();
-
-  // Inner sky
-  const sky = cctx.createRadialGradient(cx, cy, 0, cx, cy, R-7);
-  sky.addColorStop(0, '#0d1a3a');
-  sky.addColorStop(1, '#060e20');
-  cctx.beginPath();
-  cctx.arc(cx, cy, R-7, 0, 2*Math.PI);
-  cctx.fillStyle = sky;
-  cctx.fill();
-
-  // Rotate canvas by -heading so North points up relative to real north
-  const rotAngle = heading !== null ? -rad(heading) : 0;
-  cctx.save();
-  cctx.translate(cx, cy);
-  cctx.rotate(rotAngle);
-
-  // Tick marks (every 10°)
-  for (let i = 0; i < 36; i++) {
-    const a = rad(i * 10);
-    const inner = i % 9 === 0 ? R-22 : (i % 3 === 0 ? R-18 : R-14);
-    cctx.beginPath();
-    cctx.moveTo(Math.sin(a)*(R-8), -Math.cos(a)*(R-8));
-    cctx.lineTo(Math.sin(a)*inner,  -Math.cos(a)*inner);
-    cctx.strokeStyle = i % 9 === 0 ? 'rgba(160,190,255,0.7)' : 'rgba(80,120,200,0.35)';
-    cctx.lineWidth = i % 9 === 0 ? 1.5 : 0.8;
-    cctx.stroke();
-  }
-
-  // Cardinal & intercardinal labels
-  const cardinals = [
-    ['N', 0, '#ff6655', 13],
-    ['E', 90, '#99aadd', 10],
-    ['S', 180, '#99aadd', 10],
-    ['W', 270, '#99aadd', 10],
-    ['NE', 45, '#667799', 8],
-    ['SE', 135, '#667799', 8],
-    ['SW', 225, '#667799', 8],
-    ['NW', 315, '#667799', 8],
-  ];
-  cardinals.forEach(([lbl, az, col, fs]) => {
-    const a = rad(az);
-    const lr = R - 28;
-    cctx.save();
-    cctx.translate(Math.sin(a)*lr, -Math.cos(a)*lr);
-    cctx.fillStyle = col;
-    cctx.font = `bold ${fs}px sans-serif`;
-    cctx.textAlign = 'center';
-    cctx.textBaseline = 'middle';
-    cctx.fillText(lbl, 0, 0);
-    cctx.restore();
-  });
-
-  cctx.restore(); // end rotation
-
-  // Needle — always points up (= North direction after rotation)
-  if (heading !== null) {
-    // North needle (red)
-    cctx.save();
-    cctx.translate(cx, cy);
-    cctx.beginPath();
-    cctx.moveTo(0, -(R-32));
-    cctx.lineTo(-5, 8);
-    cctx.lineTo(0, 4);
-    cctx.lineTo(5, 8);
-    cctx.closePath();
-    cctx.fillStyle = '#ff4444';
-    cctx.fill();
-    // South needle (white)
-    cctx.beginPath();
-    cctx.moveTo(0, R-32);
-    cctx.lineTo(-5, -8);
-    cctx.lineTo(0, -4);
-    cctx.lineTo(5, -8);
-    cctx.closePath();
-    cctx.fillStyle = 'rgba(220,230,255,0.8)';
-    cctx.fill();
-    // Center dot
-    cctx.beginPath();
-    cctx.arc(0, 0, 4, 0, 2*Math.PI);
-    cctx.fillStyle = '#ccd8ff';
-    cctx.fill();
-    cctx.restore();
-  } else {
-    // No sensor — draw static question mark style
-    cctx.save();
-    cctx.translate(cx, cy);
-    cctx.fillStyle = 'rgba(80,100,140,0.5)';
-    cctx.font = 'bold 22px sans-serif';
-    cctx.textAlign = 'center';
-    cctx.textBaseline = 'middle';
-    cctx.fillText('?', 0, 0);
-    cctx.restore();
-  }
-
-  // Fixed north indicator triangle at top
-  cctx.save();
-  cctx.translate(cx, cy);
-  cctx.beginPath();
-  cctx.moveTo(0, -(R-2));
-  cctx.lineTo(-4, -(R-10));
-  cctx.lineTo(4,  -(R-10));
-  cctx.closePath();
-  cctx.fillStyle = 'rgba(255,100,80,0.6)';
-  cctx.fill();
-  cctx.restore();
-}
-
-function updateCompassUI(heading) {
-  const hdEl   = document.getElementById('compass-heading');
-  const dirEl  = document.getElementById('compass-dir-name');
-  const noteEl = document.getElementById('compass-note');
-
-  if (heading === null) {
-    hdEl.textContent  = '---°';
-    dirEl.textContent = '---';
-    noteEl.innerHTML  = '센서 없음<br>데스크톱에서는 미지원';
-    drawCompass(null);
-    return;
-  }
-
-  hdEl.textContent  = Math.round(heading) + '°';
-  dirEl.textContent = heading2name(heading);
-  noteEl.innerHTML  = '기기를 수평으로 들어주세요';
-  drawCompass(heading);
-}
-
-// 최단 호 경로로 각도 보간
-function smoothAngle(current, target, factor) {
-  if (current === null) return target;
-  let diff = target - current;
-  while (diff >  180) diff -= 360;
-  while (diff < -180) diff += 360;
-  return current + diff * factor;
-}
-
-// 원형 평균 (각도 버퍼 노이즈 제거)
-function circularMean(angles) {
-  let s = 0, c = 0;
-  angles.forEach(a => { s += Math.sin(rad(a)); c += Math.cos(rad(a)); });
-  return n360(deg(Math.atan2(s / angles.length, c / angles.length)));
-}
-
+// ─── 나침반 (통합) ────────────────────────────────────────────────────────
 const HEADING_BUF = [];
-const BUF_SIZE    = 8;    // 최근 8개 평균
-let rawHeading    = null; // 센서 최신값 (버퍼 평균)
-let compassRafId  = null; // 단일 rAF 루프 ID
+const BUF_SIZE    = 8;
+let rawHeading    = null;
+let compassRafId  = null;
 
-// 센서 → rawHeading만 갱신 (렌더링과 분리)
+function circularMean(angles) {
+  let s=0, c=0;
+  angles.forEach(a => { s += Math.sin(rad(a)); c += Math.cos(rad(a)); });
+  return n360(deg(Math.atan2(s/angles.length, c/angles.length)));
+}
+
+function smoothAngle(cur, tgt, f) {
+  if (cur === null) return tgt;
+  let d = tgt - cur;
+  while (d >  180) d -= 360;
+  while (d < -180) d += 360;
+  return cur + d * f;
+}
+
+function updateHeadingBar(h) {
+  if (h === null) return;
+  document.getElementById('heading-text').textContent = Math.round(h) + '°';
+  document.getElementById('heading-dir').textContent  = az2dir(h);
+  document.getElementById('heading-note').textContent = '';
+}
+
+// 센서 이벤트 → rawHeading 갱신만 (렌더링과 분리)
 function onOrientation(e) {
   let h = null;
-  if (e.webkitCompassHeading != null) {
-    h = e.webkitCompassHeading;               // iOS 직접값
-  } else if (e.alpha != null) {
-    h = (360 - e.alpha) % 360;               // Android
-  }
+  if (e.webkitCompassHeading != null)  h = e.webkitCompassHeading;
+  else if (e.alpha != null)            h = (360 - e.alpha) % 360;
   if (h === null) return;
 
   HEADING_BUF.push(h);
@@ -956,12 +740,13 @@ function onOrientation(e) {
   if (!compassRafId) startCompassLoop();
 }
 
-// 단일 rAF 루프 — 센서와 독립적으로 부드럽게 렌더링
+// 단일 rAF 루프 — 저역통과 필터 후 하늘 전체 재그리기
 function startCompassLoop() {
   function loop() {
     if (rawHeading !== null) {
       compassSmooth = smoothAngle(compassSmooth, rawHeading, 0.05);
-      updateCompassUI(compassSmooth);
+      updateHeadingBar(compassSmooth);
+      drawSky();
     }
     compassRafId = requestAnimationFrame(loop);
   }
@@ -969,44 +754,57 @@ function startCompassLoop() {
 }
 
 function requestCompass() {
-  if (typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof DeviceOrientationEvent.requestPermission === 'function') {
-    // iOS 13+
+  if (typeof DeviceOrientationEvent?.requestPermission === 'function') {
     DeviceOrientationEvent.requestPermission()
       .then(state => {
         if (state === 'granted') {
           window.addEventListener('deviceorientationabsolute', onOrientation, true);
-          window.addEventListener('deviceorientation', onOrientation, true);
-          document.getElementById('compass-btn').style.display = 'none';
+          window.addEventListener('deviceorientation',         onOrientation, true);
+          document.getElementById('compass-btn').style.display  = 'none';
+          document.getElementById('heading-note').textContent   = '기기를 수평으로 들어주세요';
         } else {
-          document.getElementById('compass-note').innerHTML = '권한이 거부되었습니다';
+          document.getElementById('heading-note').textContent = '권한 거부됨';
         }
-      })
-      .catch(() => {
-        document.getElementById('compass-note').innerHTML = '권한 요청 실패';
       });
   }
 }
 
 function initCompass() {
-  drawCompass(null);
-
   if (typeof DeviceOrientationEvent === 'undefined') {
-    updateCompassUI(null);
+    document.getElementById('heading-note').textContent = '센서 없음 (데스크톱)';
     return;
   }
-
   if (typeof DeviceOrientationEvent.requestPermission === 'function') {
-    // iOS 13+ — need explicit permission button
-    document.getElementById('compass-btn').style.display = 'inline-block';
-    document.getElementById('compass-note').innerHTML = '아래 버튼을 눌러<br>나침반을 활성화하세요';
-    drawCompass(null);
+    // iOS 13+: 버튼으로 권한 요청
+    document.getElementById('compass-btn').style.display  = 'inline-block';
+    document.getElementById('heading-note').textContent   = '';
   } else {
-    // Android / other — auto start
     window.addEventListener('deviceorientationabsolute', onOrientation, true);
-    window.addEventListener('deviceorientation', onOrientation, true);
-    document.getElementById('compass-note').innerHTML = '기기를 수평으로 들어주세요';
+    window.addEventListener('deviceorientation',         onOrientation, true);
+    document.getElementById('heading-note').textContent = '기기를 수평으로 들어주세요';
   }
+}
+
+// ─── 위치 ─────────────────────────────────────────────────────────────────
+function initLocation() {
+  if (!navigator.geolocation) { startWithDefault('위치 서비스 미지원 — 서울 기본값'); return; }
+  navigator.geolocation.getCurrentPosition(
+    pos => {
+      userLat = pos.coords.latitude;
+      userLon = pos.coords.longitude;
+      document.getElementById('loc-display').textContent =
+        `위도 ${userLat.toFixed(4)}°  경도 ${userLon.toFixed(4)}°`;
+      document.getElementById('loading').style.display = 'none';
+      resize(); updateAll(); setInterval(updateAll, 60000);
+    },
+    () => startWithDefault('위치 권한 없음 — 서울 기본값')
+  );
+}
+
+function startWithDefault(msg) {
+  document.getElementById('loc-display').textContent = msg;
+  document.getElementById('loading').style.display = 'none';
+  resize(); updateAll(); setInterval(updateAll, 60000);
 }
 
 window.addEventListener('resize', resize);
