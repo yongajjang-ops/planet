@@ -147,6 +147,41 @@ body {
   font-size: 11px; color: #445566;
   text-align: center;
 }
+
+#compass-section {
+  width: 100%; max-width: 520px;
+  padding: 0 18px 10px;
+}
+#compass-wrap {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 18px;
+  background: rgba(5,18,50,0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(80,130,255,0.1);
+}
+#compass-canvas { flex-shrink: 0; display: block; }
+#compass-info { flex: 1; }
+#compass-heading {
+  font-size: 28px; font-weight: 700;
+  color: #88aaff;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+#compass-dir-name { font-size: 14px; color: #aabbdd; margin: 4px 0 8px; }
+#compass-note { font-size: 10px; color: #334455; line-height: 1.6; }
+#compass-btn {
+  display: none;
+  margin-top: 8px;
+  background: rgba(80,130,255,0.15);
+  border: 1px solid rgba(80,130,255,0.3);
+  color: #88aaff;
+  padding: 6px 14px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12px;
+}
 </style>
 </head>
 <body>
@@ -175,6 +210,19 @@ body {
 </div>
 
 <div id="sky-condition"></div>
+
+<div id="compass-section">
+  <div class="section-label">나침반</div>
+  <div id="compass-wrap">
+    <canvas id="compass-canvas" width="120" height="120"></canvas>
+    <div id="compass-info">
+      <div id="compass-heading">---°</div>
+      <div id="compass-dir-name">---</div>
+      <div id="compass-note">기기를 수평으로 들고<br>천천히 돌려주세요</div>
+      <button id="compass-btn" onclick="requestCompass()">나침반 활성화</button>
+    </div>
+  </div>
+</div>
 
 <div id="legend">
   <div class="legend-item"><div class="legend-dot" style="background:#ffd700"></div>태양</div>
@@ -718,10 +766,245 @@ function startWithDefault(msg) {
   setInterval(updateAll, 60000);
 }
 
+// ─── Compass ───────────────────────────────────────────────────────────────
+const compassCanvas = document.getElementById('compass-canvas');
+const cctx = compassCanvas.getContext('2d');
+let compassHeading = null;   // null = unknown
+let compassSmooth  = null;   // smoothed angle for animation
+
+const DIR16 = ['북','북북동','북동','동북동','동','동남동','남동','남남동',
+               '남','남남서','남서','서남서','서','서북서','북서','북북서'];
+
+function heading2name(h) { return DIR16[Math.round(h / 22.5) % 16]; }
+
+function drawCompass(heading) {
+  const W = compassCanvas.width, H = compassCanvas.height;
+  const cx = W/2, cy = H/2, R = W/2 - 4;
+  cctx.clearRect(0, 0, W, H);
+
+  // Outer bezel
+  const bezel = cctx.createRadialGradient(cx, cy, R-6, cx, cy, R);
+  bezel.addColorStop(0, 'rgba(30,60,120,0.8)');
+  bezel.addColorStop(1, 'rgba(10,20,50,0.9)');
+  cctx.beginPath();
+  cctx.arc(cx, cy, R, 0, 2*Math.PI);
+  cctx.fillStyle = bezel;
+  cctx.fill();
+  cctx.strokeStyle = 'rgba(80,130,255,0.3)';
+  cctx.lineWidth = 1.5;
+  cctx.stroke();
+
+  // Inner sky
+  const sky = cctx.createRadialGradient(cx, cy, 0, cx, cy, R-7);
+  sky.addColorStop(0, '#0d1a3a');
+  sky.addColorStop(1, '#060e20');
+  cctx.beginPath();
+  cctx.arc(cx, cy, R-7, 0, 2*Math.PI);
+  cctx.fillStyle = sky;
+  cctx.fill();
+
+  // Rotate canvas by -heading so North points up relative to real north
+  const rotAngle = heading !== null ? -rad(heading) : 0;
+  cctx.save();
+  cctx.translate(cx, cy);
+  cctx.rotate(rotAngle);
+
+  // Tick marks (every 10°)
+  for (let i = 0; i < 36; i++) {
+    const a = rad(i * 10);
+    const inner = i % 9 === 0 ? R-22 : (i % 3 === 0 ? R-18 : R-14);
+    cctx.beginPath();
+    cctx.moveTo(Math.sin(a)*(R-8), -Math.cos(a)*(R-8));
+    cctx.lineTo(Math.sin(a)*inner,  -Math.cos(a)*inner);
+    cctx.strokeStyle = i % 9 === 0 ? 'rgba(160,190,255,0.7)' : 'rgba(80,120,200,0.35)';
+    cctx.lineWidth = i % 9 === 0 ? 1.5 : 0.8;
+    cctx.stroke();
+  }
+
+  // Cardinal & intercardinal labels
+  const cardinals = [
+    ['N', 0, '#ff6655', 13],
+    ['E', 90, '#99aadd', 10],
+    ['S', 180, '#99aadd', 10],
+    ['W', 270, '#99aadd', 10],
+    ['NE', 45, '#667799', 8],
+    ['SE', 135, '#667799', 8],
+    ['SW', 225, '#667799', 8],
+    ['NW', 315, '#667799', 8],
+  ];
+  cardinals.forEach(([lbl, az, col, fs]) => {
+    const a = rad(az);
+    const lr = R - 28;
+    cctx.save();
+    cctx.translate(Math.sin(a)*lr, -Math.cos(a)*lr);
+    cctx.fillStyle = col;
+    cctx.font = `bold ${fs}px sans-serif`;
+    cctx.textAlign = 'center';
+    cctx.textBaseline = 'middle';
+    cctx.fillText(lbl, 0, 0);
+    cctx.restore();
+  });
+
+  cctx.restore(); // end rotation
+
+  // Needle — always points up (= North direction after rotation)
+  if (heading !== null) {
+    // North needle (red)
+    cctx.save();
+    cctx.translate(cx, cy);
+    cctx.beginPath();
+    cctx.moveTo(0, -(R-32));
+    cctx.lineTo(-5, 8);
+    cctx.lineTo(0, 4);
+    cctx.lineTo(5, 8);
+    cctx.closePath();
+    cctx.fillStyle = '#ff4444';
+    cctx.fill();
+    // South needle (white)
+    cctx.beginPath();
+    cctx.moveTo(0, R-32);
+    cctx.lineTo(-5, -8);
+    cctx.lineTo(0, -4);
+    cctx.lineTo(5, -8);
+    cctx.closePath();
+    cctx.fillStyle = 'rgba(220,230,255,0.8)';
+    cctx.fill();
+    // Center dot
+    cctx.beginPath();
+    cctx.arc(0, 0, 4, 0, 2*Math.PI);
+    cctx.fillStyle = '#ccd8ff';
+    cctx.fill();
+    cctx.restore();
+  } else {
+    // No sensor — draw static question mark style
+    cctx.save();
+    cctx.translate(cx, cy);
+    cctx.fillStyle = 'rgba(80,100,140,0.5)';
+    cctx.font = 'bold 22px sans-serif';
+    cctx.textAlign = 'center';
+    cctx.textBaseline = 'middle';
+    cctx.fillText('?', 0, 0);
+    cctx.restore();
+  }
+
+  // Fixed north indicator triangle at top
+  cctx.save();
+  cctx.translate(cx, cy);
+  cctx.beginPath();
+  cctx.moveTo(0, -(R-2));
+  cctx.lineTo(-4, -(R-10));
+  cctx.lineTo(4,  -(R-10));
+  cctx.closePath();
+  cctx.fillStyle = 'rgba(255,100,80,0.6)';
+  cctx.fill();
+  cctx.restore();
+}
+
+function updateCompassUI(heading) {
+  const hdEl   = document.getElementById('compass-heading');
+  const dirEl  = document.getElementById('compass-dir-name');
+  const noteEl = document.getElementById('compass-note');
+
+  if (heading === null) {
+    hdEl.textContent  = '---°';
+    dirEl.textContent = '---';
+    noteEl.innerHTML  = '센서 없음<br>데스크톱에서는 미지원';
+    drawCompass(null);
+    return;
+  }
+
+  hdEl.textContent  = Math.round(heading) + '°';
+  dirEl.textContent = heading2name(heading);
+  noteEl.innerHTML  = '기기를 수평으로 들어주세요';
+  drawCompass(heading);
+}
+
+// Smooth angle (shortest arc interpolation)
+function smoothAngle(current, target, factor) {
+  if (current === null) return target;
+  let diff = target - current;
+  while (diff >  180) diff -= 360;
+  while (diff < -180) diff += 360;
+  return current + diff * factor;
+}
+
+let compassAnimFrame = null;
+function animateCompass(targetHeading) {
+  compassSmooth = smoothAngle(compassSmooth, targetHeading, 0.15);
+  updateCompassUI(compassSmooth);
+  if (Math.abs(smoothAngle(compassSmooth, targetHeading, 1)) > 0.3) {
+    compassAnimFrame = requestAnimationFrame(() => animateCompass(targetHeading));
+  } else {
+    updateCompassUI(targetHeading);
+  }
+}
+
+function onOrientation(e) {
+  let heading = null;
+
+  if (e.webkitCompassHeading !== undefined && e.webkitCompassHeading !== null) {
+    // iOS — direct compass heading
+    heading = e.webkitCompassHeading;
+  } else if (e.absolute && e.alpha !== null) {
+    // Android with absolute orientation
+    heading = (360 - e.alpha) % 360;
+  } else if (e.alpha !== null) {
+    // Non-absolute — use alpha as approximation
+    heading = (360 - e.alpha) % 360;
+  }
+
+  if (heading === null) return;
+  compassHeading = heading;
+  if (compassAnimFrame) cancelAnimationFrame(compassAnimFrame);
+  animateCompass(heading);
+}
+
+function requestCompass() {
+  if (typeof DeviceOrientationEvent !== 'undefined' &&
+      typeof DeviceOrientationEvent.requestPermission === 'function') {
+    // iOS 13+
+    DeviceOrientationEvent.requestPermission()
+      .then(state => {
+        if (state === 'granted') {
+          window.addEventListener('deviceorientationabsolute', onOrientation, true);
+          window.addEventListener('deviceorientation', onOrientation, true);
+          document.getElementById('compass-btn').style.display = 'none';
+        } else {
+          document.getElementById('compass-note').innerHTML = '권한이 거부되었습니다';
+        }
+      })
+      .catch(() => {
+        document.getElementById('compass-note').innerHTML = '권한 요청 실패';
+      });
+  }
+}
+
+function initCompass() {
+  drawCompass(null);
+
+  if (typeof DeviceOrientationEvent === 'undefined') {
+    updateCompassUI(null);
+    return;
+  }
+
+  if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+    // iOS 13+ — need explicit permission button
+    document.getElementById('compass-btn').style.display = 'inline-block';
+    document.getElementById('compass-note').innerHTML = '아래 버튼을 눌러<br>나침반을 활성화하세요';
+    drawCompass(null);
+  } else {
+    // Android / other — auto start
+    window.addEventListener('deviceorientationabsolute', onOrientation, true);
+    window.addEventListener('deviceorientation', onOrientation, true);
+    document.getElementById('compass-note').innerHTML = '기기를 수평으로 들어주세요';
+  }
+}
+
 window.addEventListener('resize', resize);
 window.addEventListener('load', () => {
   resize();
   initLocation();
+  initCompass();
 });
 </script>
 </body>
