@@ -296,6 +296,88 @@ const BODIES = [
    L:-55.12002969,dL:218.45945325,w:44.96476227,dw:-0.32241464,O:131.78422574,dO:-5.08664e-3}
 ];
 
+// ─── 별 & 별자리 데이터 (J2000 RA=h, Dec=°) ───────────────────────────────
+// [id, 이름, 한글명, RA(h), Dec(°), 등급, 색]
+const STAR_DATA = [
+  // 오리온자리
+  ['betelgeuse','Betelgeuse','베텔게우스', 5.9194,  7.4069,  0.50,'#ffaa77'],
+  ['rigel',     'Rigel',     '리겔',       5.2422, -8.2016,  0.13,'#b0ccff'],
+  ['bellatrix', 'Bellatrix', '',           5.4189,  6.3497,  1.64,'#ccddff'],
+  ['mintaka',   'Mintaka',   '',           5.5334, -0.2992,  2.23,'#e8f0ff'],
+  ['alnilam',   'Alnilam',   '알닐람',     5.6036, -1.2019,  1.70,'#ccddff'],
+  ['alnitak',   'Alnitak',   '',           5.6793, -1.9428,  1.74,'#ccddff'],
+  ['saiph',     'Saiph',     '',           5.7958, -9.6697,  2.06,'#e8f0ff'],
+  ['meissa',    'Meissa',    '',           5.5856,  9.9342,  3.39,'#ccddff'],
+  // 북두칠성 (큰곰자리)
+  ['dubhe',  'Dubhe',  '두브헤', 11.0622, 61.7511, 1.79,'#ffddaa'],
+  ['merak',  'Merak',  '',       11.0307, 56.3825, 2.37,'#e8f0ff'],
+  ['phecda', 'Phecda', '',       11.8972, 53.6947, 2.44,'#e8f0ff'],
+  ['megrez', 'Megrez', '',       12.2571, 57.0325, 3.31,'#e8f0ff'],
+  ['alioth', 'Alioth', '알리오스',12.9005, 55.9597, 1.77,'#e8f0ff'],
+  ['mizar',  'Mizar',  '',       13.3988, 54.9253, 2.23,'#e8f0ff'],
+  ['alkaid', 'Alkaid', '알카이드',13.7923, 49.3133, 1.86,'#ccddff'],
+  // 북극성
+  ['polaris','Polaris','북극성',  2.5303, 89.2642, 1.98,'#ffffcc'],
+  // 거문고자리
+  ['vega',    'Vega',    '베가(직녀)', 18.6156, 38.7836, 0.03,'#b0ccff'],
+  ['sheliak', 'Sheliak', '',           18.8265, 33.3625, 3.52,'#e8f0ff'],
+  ['sulafat', 'Sulafat', '',           18.9824, 32.6894, 3.25,'#e8f0ff'],
+  ['lyra_d1', 'δ Lyr',   '',           18.8954, 36.9686, 4.22,'#e8f0ff'],
+  ['lyra_z',  'ζ Lyr',   '',           18.7462, 37.5958, 4.34,'#e8f0ff'],
+  // 페가수스자리
+  ['markab',    'Markab',    '마르카브', 23.0793, 15.2053, 2.49,'#e8f0ff'],
+  ['scheat',    'Scheat',    '',         23.0629, 28.0828, 2.42,'#ffddaa'],
+  ['algenib',   'Algenib',   '',          0.2206, 15.1836, 2.83,'#ccddff'],
+  ['alpheratz', 'Alpheratz', '',          0.1398, 29.0908, 2.06,'#ccddff'],
+  ['enif',      'Enif',      '에니프',   21.7364,  9.8750, 2.38,'#ffddaa'],
+  ['homam',     'Homam',     '',         22.6910, 10.8314, 3.40,'#e8f0ff'],
+  ['matar',     'Matar',     '',         22.7167, 30.2214, 2.95,'#e8f0ff'],
+  // 밝은 별 12개+
+  ['sirius',    'Sirius',    '시리우스',    6.7525,-16.7161,-1.46,'#b0ccff'],
+  ['arcturus',  'Arcturus',  '아르크투루스',14.2611, 19.1822,-0.05,'#ffaa55'],
+  ['capella',   'Capella',   '카펠라',      5.2781, 45.9978, 0.08,'#ffeeaa'],
+  ['procyon',   'Procyon',   '프로키온',    7.6550,  5.2250, 0.40,'#fffaee'],
+  ['altair',    'Altair',    '알타이르(견우)',19.8458, 8.8681, 0.77,'#e8f0ff'],
+  ['aldebaran', 'Aldebaran', '알데바란',    4.5986, 16.5092, 0.85,'#ff8833'],
+  ['antares',   'Antares',   '안타레스',   16.4900,-26.4319, 1.09,'#ff6644'],
+  ['spica',     'Spica',     '스피카',     13.4200,-11.1614, 1.04,'#b0ccff'],
+  ['pollux',    'Pollux',    '폴룩스',      7.7553, 28.0261, 1.16,'#ffddaa'],
+  ['deneb',     'Deneb',     '데네브',     20.6906, 45.2803, 1.25,'#e8f0ff'],
+  ['regulus',   'Regulus',   '레굴루스',   10.1394, 11.9672, 1.40,'#ccddff'],
+  ['fomalhaut', 'Fomalhaut', '포말하우트', 22.9608,-29.6222, 1.17,'#b0ccff'],
+];
+
+// 별자리 연결선 [별id1, 별id2]
+const CON_LINES = {
+  orion: [
+    ['meissa','betelgeuse'],['betelgeuse','bellatrix'],
+    ['betelgeuse','alnitak'],['bellatrix','mintaka'],
+    ['mintaka','alnilam'],['alnilam','alnitak'],
+    ['alnitak','saiph'],['mintaka','rigel'],
+  ],
+  ursamajor: [
+    ['dubhe','merak'],['merak','phecda'],['phecda','megrez'],
+    ['megrez','dubhe'],['megrez','alioth'],['alioth','mizar'],['mizar','alkaid'],
+  ],
+  lyra: [
+    ['vega','lyra_z'],['vega','sheliak'],
+    ['lyra_z','lyra_d1'],['sheliak','sulafat'],['sulafat','lyra_d1'],
+  ],
+  pegasus: [
+    ['markab','scheat'],['scheat','alpheratz'],['alpheratz','algenib'],['algenib','markab'],
+    ['markab','enif'],['enif','homam'],['homam','markab'],
+    ['scheat','matar'],['matar','homam'],
+  ],
+};
+
+// 별자리 이름 표시 기준별
+const CON_LABEL = {
+  orion:     ['alnilam',  '오리온자리'],
+  ursamajor: ['alioth',   '북두칠성'],
+  lyra:      ['vega',     '거문고자리'],
+  pegasus:   ['algenib',  '페가수스자리'],
+};
+
 // ─── Sun ───────────────────────────────────────────────────────────────────
 function sunPosition(JD, lat, lon) {
   const T = (JD-2451545)/36525;
@@ -356,6 +438,19 @@ const canvas = document.getElementById('sky-canvas');
 const ctx    = canvas.getContext('2d');
 let CW = 0, allBodies = [], selId = null, stars = null;
 let compassSmooth = null;   // 저역통과 필터 적용된 표시 방위
+let starAltAz = [];         // 계산된 별 위치 캐시
+
+function computeStars(JD, lat, lon) {
+  const LST = lst(JD, lon);
+  const starById = {};
+  starAltAz = STAR_DATA.map(([id, name, ko, raH, dec, mag, color]) => {
+    const { alt, az } = radec2altaz(raH * 15, dec, LST, lat);
+    const s = { id, name, ko, mag, color, alt, az };
+    starById[id] = s;
+    return s;
+  });
+  starAltAz._byId = starById;
+}
 
 function resize() {
   const w = document.getElementById('sky-wrap').clientWidth - 20;
@@ -411,7 +506,7 @@ function drawSky() {
   ctx.rotate(rot);
   ctx.translate(-cx, -cy);
 
-  // 별
+  // 배경 랜덤 별
   if (!stars) mkStars();
   stars.forEach(s => {
     ctx.beginPath();
@@ -419,6 +514,93 @@ function drawSky() {
     ctx.fillStyle = `rgba(255,255,255,${s.a})`;
     ctx.fill();
   });
+
+  // 별자리 선
+  if (starAltAz.length) {
+    const byId = starAltAz._byId || {};
+    ctx.save();
+    ctx.lineWidth = 0.9;
+    ctx.setLineDash([5, 7]);
+    Object.entries(CON_LINES).forEach(([, lines]) => {
+      lines.forEach(([id1, id2]) => {
+        const s1 = byId[id1], s2 = byId[id2];
+        if (!s1 || !s2 || s1.alt <= 0 || s2.alt <= 0) return;
+        const p1 = altaz2xy(s1.alt, s1.az), p2 = altaz2xy(s2.alt, s2.az);
+        ctx.beginPath();
+        ctx.moveTo(p1.x, p1.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = 'rgba(110,160,255,0.28)';
+        ctx.stroke();
+      });
+    });
+    ctx.setLineDash([]);
+    ctx.restore();
+  }
+
+  // 주요 별 & 별자리 레이블
+  if (starAltAz.length) {
+    const byId = starAltAz._byId || {};
+    starAltAz.forEach(s => {
+      if (s.alt <= 0) return;
+      const {x, y} = altaz2xy(s.alt, s.az);
+      const sz = Math.max(1.2, 3.8 - s.mag * 0.75);
+
+      // 밝은 별 글로우
+      if (s.mag < 1.5) {
+        const gr = sz * (s.mag < 0 ? 5.5 : 4);
+        const gd = ctx.createRadialGradient(x, y, 0, x, y, gr);
+        gd.addColorStop(0, (s.color||'#fff') + '70');
+        gd.addColorStop(1, 'transparent');
+        ctx.beginPath(); ctx.arc(x, y, gr, 0, 2*Math.PI);
+        ctx.fillStyle = gd; ctx.fill();
+      }
+
+      // 별 점
+      ctx.beginPath(); ctx.arc(x, y, sz, 0, 2*Math.PI);
+      ctx.fillStyle = s.color || '#e8f0ff'; ctx.fill();
+
+      // 한글 이름 (mag < 1.5 & 이름 있음)
+      if (s.ko && s.mag < 1.5) {
+        ctx.save();
+        ctx.translate(x + sz + 4, y - 1);
+        ctx.rotate(-rot);
+        ctx.fillStyle = (s.color||'#ffffff') + 'cc';
+        ctx.font = '9px sans-serif';
+        ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+        ctx.fillText(s.ko, 0, 0);
+        ctx.restore();
+      }
+    });
+
+    // 북극성 강조 레이블
+    const pol = byId['polaris'];
+    if (pol && pol.alt > 0) {
+      const {x, y} = altaz2xy(pol.alt, pol.az);
+      ctx.save();
+      ctx.translate(x + 7, y - 1);
+      ctx.rotate(-rot);
+      ctx.fillStyle = '#ffffaacc';
+      ctx.font = 'bold 9px sans-serif';
+      ctx.textAlign = 'left'; ctx.textBaseline = 'middle';
+      ctx.fillText('★ 북극성', 0, 0);
+      ctx.restore();
+    }
+
+    // 별자리 이름
+    Object.entries(CON_LABEL).forEach(([, [refId, name]]) => {
+      const ref = byId[refId];
+      if (!ref || ref.alt <= 0) return;
+      const {x, y} = altaz2xy(ref.alt, ref.az);
+      ctx.save();
+      ctx.translate(x, y - 20);
+      ctx.rotate(-rot);
+      ctx.fillStyle = 'rgba(140,185,255,0.6)';
+      ctx.font = '9px sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText(name, 0, 0);
+      ctx.restore();
+    });
+  }
 
   // 고도 링 (원이라 회전 무관하지만, 눈금 레이블은 역회전으로 가독성 유지)
   [30, 60].forEach(alt => {
@@ -737,6 +919,7 @@ function updateAll() {
     now.toLocaleDateString('ko-KR',{year:'numeric',month:'short',day:'numeric'})+'  '+
     now.toLocaleTimeString('ko-KR');
   const JD = jd(now);
+  computeStars(JD, userLat, userLon);
   allBodies = [
     sunPosition(JD, userLat, userLon),
     moonPosition(JD, userLat, userLon),
