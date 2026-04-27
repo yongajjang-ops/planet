@@ -769,8 +769,7 @@ function startWithDefault(msg) {
 // ─── Compass ───────────────────────────────────────────────────────────────
 const compassCanvas = document.getElementById('compass-canvas');
 const cctx = compassCanvas.getContext('2d');
-let compassHeading = null;   // null = unknown
-let compassSmooth  = null;   // smoothed angle for animation
+let compassSmooth = null;   // 저역통과 필터 적용된 표시값
 
 const DIR16 = ['북','북북동','북동','동북동','동','동남동','남동','남남동',
                '남','남남서','남서','서남서','서','서북서','북서','북북서'];
@@ -919,7 +918,7 @@ function updateCompassUI(heading) {
   drawCompass(heading);
 }
 
-// Smooth angle (shortest arc interpolation)
+// 최단 호 경로로 각도 보간
 function smoothAngle(current, target, factor) {
   if (current === null) return target;
   let diff = target - current;
@@ -928,35 +927,45 @@ function smoothAngle(current, target, factor) {
   return current + diff * factor;
 }
 
-let compassAnimFrame = null;
-function animateCompass(targetHeading) {
-  compassSmooth = smoothAngle(compassSmooth, targetHeading, 0.15);
-  updateCompassUI(compassSmooth);
-  if (Math.abs(smoothAngle(compassSmooth, targetHeading, 1)) > 0.3) {
-    compassAnimFrame = requestAnimationFrame(() => animateCompass(targetHeading));
-  } else {
-    updateCompassUI(targetHeading);
-  }
+// 원형 평균 (각도 버퍼 노이즈 제거)
+function circularMean(angles) {
+  let s = 0, c = 0;
+  angles.forEach(a => { s += Math.sin(rad(a)); c += Math.cos(rad(a)); });
+  return n360(deg(Math.atan2(s / angles.length, c / angles.length)));
 }
 
+const HEADING_BUF = [];
+const BUF_SIZE    = 8;    // 최근 8개 평균
+let rawHeading    = null; // 센서 최신값 (버퍼 평균)
+let compassRafId  = null; // 단일 rAF 루프 ID
+
+// 센서 → rawHeading만 갱신 (렌더링과 분리)
 function onOrientation(e) {
-  let heading = null;
-
-  if (e.webkitCompassHeading !== undefined && e.webkitCompassHeading !== null) {
-    // iOS — direct compass heading
-    heading = e.webkitCompassHeading;
-  } else if (e.absolute && e.alpha !== null) {
-    // Android with absolute orientation
-    heading = (360 - e.alpha) % 360;
-  } else if (e.alpha !== null) {
-    // Non-absolute — use alpha as approximation
-    heading = (360 - e.alpha) % 360;
+  let h = null;
+  if (e.webkitCompassHeading != null) {
+    h = e.webkitCompassHeading;               // iOS 직접값
+  } else if (e.alpha != null) {
+    h = (360 - e.alpha) % 360;               // Android
   }
+  if (h === null) return;
 
-  if (heading === null) return;
-  compassHeading = heading;
-  if (compassAnimFrame) cancelAnimationFrame(compassAnimFrame);
-  animateCompass(heading);
+  HEADING_BUF.push(h);
+  if (HEADING_BUF.length > BUF_SIZE) HEADING_BUF.shift();
+  rawHeading = circularMean(HEADING_BUF);
+
+  if (!compassRafId) startCompassLoop();
+}
+
+// 단일 rAF 루프 — 센서와 독립적으로 부드럽게 렌더링
+function startCompassLoop() {
+  function loop() {
+    if (rawHeading !== null) {
+      compassSmooth = smoothAngle(compassSmooth, rawHeading, 0.05);
+      updateCompassUI(compassSmooth);
+    }
+    compassRafId = requestAnimationFrame(loop);
+  }
+  compassRafId = requestAnimationFrame(loop);
 }
 
 function requestCompass() {
