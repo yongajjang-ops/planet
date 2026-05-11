@@ -77,7 +77,7 @@ body {
 #sky-wrap {
   position: relative;
   width: 100%; max-width: 520px;
-  padding: 10px 18px;
+  padding: 0;
 }
 #sky-canvas { display: block; width: 100%; cursor: grab; border-radius: 50%; }
 
@@ -455,8 +455,7 @@ function computeStars(JD, lat, lon) {
 }
 
 function resize() {
-  const w = document.getElementById('sky-wrap').clientWidth - 20;
-  CW = Math.min(w, 480);
+  CW = document.getElementById('sky-wrap').clientWidth;
   canvas.width = canvas.height = CW;
   stars = null;
   if (allBodies.length) drawSky();
