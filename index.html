@@ -463,10 +463,10 @@ function resize() {
 function mkStars() {
   stars = [];
   const r = CW/2 - 6;
-  for (let i = 0; i < 250; i++) {
+  for (let i = 0; i < 60; i++) {
     const a = Math.random()*2*Math.PI, rs = Math.random()*r;
     stars.push({x: CW/2+rs*Math.cos(a), y: CW/2+rs*Math.sin(a),
-                r: Math.random()*1.3+0.2, a: Math.random()*0.6+0.2});
+                r: Math.random()*0.7+0.1, a: Math.random()*0.25+0.08});
   }
 }
 
@@ -542,6 +542,7 @@ function drawSky() {
     const byId = starAltAz._byId || {};
     starAltAz.forEach(s => {
       if (s.alt <= 0) return;
+      if (s.mag > 2.5) return;
       const {x, y} = altaz2xy(s.alt, s.az);
       const sz = Math.max(1.2, 3.8 - s.mag * 0.75);
 
