@@ -647,21 +647,21 @@ function drawSky() {
     ctx.stroke();
   }
 
-  // 방위 레이블 (N/E/S/W + 한글)
+  // 방위 레이블 (N/E/S/W)
   const dirs = [
-    ['N', '북', 0,   '#ff2200', 32],
-    ['E', '동', 90,  '#ffffff', 26],
-    ['S', '남', 180, '#ffffff', 26],
-    ['W', '서', 270, '#ffffff', 26],
+    ['N', 0,   '#ff2200', 32],
+    ['E', 90,  '#ffffff', 26],
+    ['S', 180, '#ffffff', 26],
+    ['W', 270, '#ffffff', 26],
   ];
-  dirs.forEach(([en, ko, az, col, fs]) => {
+  dirs.forEach(([en, az, col, fs]) => {
     const {x, y} = altaz2xy(2, az);
     ctx.save();
     ctx.translate(x, y);
     ctx.rotate(-rot);
 
     // 배경 캡슐
-    const bw = fs * 2.2, bh = fs * 3.0, br = 7;
+    const bw = fs * 2.2, bh = fs * 1.8, br = 7;
     ctx.fillStyle = 'rgba(0,4,18,0.82)';
     ctx.strokeStyle = col + '88';
     ctx.lineWidth = 1.5;
@@ -682,16 +682,10 @@ function drawSky() {
     ctx.font = `bold ${fs}px sans-serif`;
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillText(en, 0, -fs * 0.28);
-    ctx.fillText(en, 0, -fs * 0.28); // 두 번 그려 글로우 강화
+    ctx.fillText(en, 0, 0);
+    ctx.fillText(en, 0, 0); // 두 번 그려 글로우 강화
 
     ctx.shadowBlur = 0;
-
-    // 한글
-    ctx.fillStyle = col + 'dd';
-    ctx.font = `bold ${fs - 10}px sans-serif`;
-    ctx.fillText(ko, 0, fs * 0.52);
-
     ctx.restore();
   });
 
@@ -858,8 +852,8 @@ function showPopup(b, cx, cy) {
 }
 
 // ─── 행성 목록 ────────────────────────────────────────────────────────────
-const DIR16 = ['북','북북동','북동','동북동','동','동남동','남동','남남동',
-               '남','남남서','남서','서남서','서','서북서','북서','북북서'];
+const DIR16 = ['N','NNE','NE','ENE','E','ESE','SE','SSE',
+               'S','SSW','SW','WSW','W','WNW','NW','NNW'];
 function az2dir(az) { return DIR16[Math.round(az/22.5) % 16]; }
 
 function renderList() {
